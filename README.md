@@ -12,42 +12,61 @@ Your primary objective is to adapt the current functionality to appear as close 
 
 Try to make the current todo list look as close to this mockup as possible. Currently the functionality of "mark as complete" works a little how I'd imagine the delete icon in the mockup should work. This is primarily a front end task, testing a developer's ability to manipulate a Drupal backend task to look different from how a backend developer left it. Adapting the backend code to allow the crossed-out (checked) functionality would be a bonus feature that I'm sure the "client" would be impressed by, but should not be the main focus.
 
+## Prerequisites
+You will need the following before starting this project:
+
+Git:
+  https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+  
+Composer:
+  https://getcomposer.org/doc/00-intro.md
+
 ## Setup
 
-1. Install dependencies with composer:
+1. Clone this repository to your local computer:
     ```
+    $ git clone git@github.com:advisorwebsites/drupaldo.git
+    ```
+2. Install dependencies with composer:
+    ```
+    $ cd drupaldo/
     $ composer install
     ```
-2. Create `/web/sites/default/settings.local.php`, and add database settings.... Or skip to 4
-
 3. Install the site from config with:
 
     ```
-    $ drush site:install --existing-config
+    $ ./vendor/bin/drush site:install --db-url=sqlite://web/sites/default/files/.ht.sqlite --existing-config
     ```
+    
+    Please note: non-Mac users will need to ensure [SQLite3](https://www.sqlite.org/index.html) is installed and running for this step.
 
-4. Install the site from config with a sqlite database. (If you did 3, skip to 5)
-
-    ```
-    $ drush site:install --db-url=sqlite://web/sites/default/files/.ht.sqlite --existing-config
-    ```
-
-5. Create a test user, and login:
+4. Create a test user, and login:
 
     ```
-    $ drush user:create test
-    $ drush user:login --name=test
+    $ ./vendor/bin/drush user:create demo
+    $ ./vendor/bin/drush user:password demo "demo"
     ```
 
-6. Host the site:
+5. Host the site:
 
     ```
     $ cd web
     $ php -S localhost:8080
     ```
 
-7. Visit localhost:8080 in browser, appending the path from drush user:login
+6. Login to your drupal website:
 
+    ```
+    localhost:8080/user with the demo:demo user
+    ```
+
+
+7. The todo list to work on:
+
+    ```
+    localhost:8080/todo
+    ```
+    
 ## Demo
 ![Watch the video](docs/drupaldo-demo.gif)
 
